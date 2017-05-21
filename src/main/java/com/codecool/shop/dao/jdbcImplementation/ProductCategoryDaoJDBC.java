@@ -1,7 +1,10 @@
 package com.codecool.shop.dao.jdbcImplementation;
 
+import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +13,7 @@ import java.util.List;
 
 public class ProductCategoryDaoJDBC extends JDBCAbstract implements ProductCategoryDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private static ProductCategoryDaoJDBC instance = null;
 
     private ProductCategoryDaoJDBC() {
@@ -42,6 +46,7 @@ public class ProductCategoryDaoJDBC extends JDBCAbstract implements ProductCateg
         } catch (SQLException e) {
             e.getStackTrace();
         }
+        logger.info("ProductCategory {} added to Database.", productCategory.getName());
     }
 
     public ProductCategory find(int id) {
@@ -69,6 +74,9 @@ public class ProductCategoryDaoJDBC extends JDBCAbstract implements ProductCateg
     }
 
     public void remove(int id) {
+        if (getAll().size() > 0 && getAll().contains(find(id))) {
+            logger.info("ProductCategory '{}' will be removed from Database.", find(id).getName());
+        }
         remove(id, "ProductCategory");
     }
 
@@ -105,6 +113,7 @@ public class ProductCategoryDaoJDBC extends JDBCAbstract implements ProductCateg
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("All productCategories removed from Database.");
     }
 
 }

@@ -1,6 +1,5 @@
 package com.codecool.shop.model;
 
-
 public class LineItem {
 
     public Product product;
@@ -17,15 +16,6 @@ public class LineItem {
         this.product = product;
         this.quantity = quantity;
         this.totalPrice = quantity * product.getDefaultPrice();
-    }
-
-    public static boolean equals(LineItem lineItemOne, LineItem lineItemTwo) {
-        if (lineItemOne.getProduct() == lineItemTwo.getProduct() &&
-                lineItemOne.getTotalPrice() == lineItemTwo.getTotalPrice()
-                ) {
-            return true;
-        }
-        return false;
     }
 
     public int getQuantity() {

@@ -1,7 +1,10 @@
 package com.codecool.shop.dao.jdbcImplementation;
 
+import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +13,7 @@ import java.util.List;
 
 public class SupplierDaoJDBC extends JDBCAbstract implements SupplierDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private static SupplierDaoJDBC instance = null;
 
     private SupplierDaoJDBC() {
@@ -41,6 +45,7 @@ public class SupplierDaoJDBC extends JDBCAbstract implements SupplierDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("Supplier {} added to Database.", supplier.getName());
 
     }
 
@@ -68,6 +73,9 @@ public class SupplierDaoJDBC extends JDBCAbstract implements SupplierDao {
     }
 
     public void remove(int id) {
+        if (getAll().size() > 0 && getAll().contains(find(id))) {
+            logger.info("Supplier {} removed from Database.", find(id).getName());
+        }
         remove(id, "Supplier");
     }
 
@@ -101,5 +109,6 @@ public class SupplierDaoJDBC extends JDBCAbstract implements SupplierDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("All suppliers deleted from Database");
     }
 }

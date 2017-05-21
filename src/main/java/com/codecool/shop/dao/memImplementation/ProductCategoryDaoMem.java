@@ -1,13 +1,18 @@
 package com.codecool.shop.dao.memImplementation;
 
 
+import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoMem implements ProductCategoryDao {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private static ProductCategoryDaoMem instance = null;
     private List<ProductCategory> DATA = new ArrayList<>();
@@ -28,6 +33,7 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     public void add(ProductCategory category) {
         category.setId(DATA.size() + 1);
         DATA.add(category);
+        logger.info("ProductCategory: {} added to our mem. ", category.getName());
     }
 
     @Override
@@ -37,6 +43,9 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     @Override
     public void remove(int id) {
+        if (DATA.size() > 0 && DATA.contains(find(id))) {
+            logger.info("ProductCategory '{}' will be removed from mem.", find(id).getName());
+        }
         DATA.remove(find(id));
     }
 
@@ -47,6 +56,7 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     public void removeAll() {
         DATA.clear();
+        logger.info("All productCategory deleted from mem.");
     }
 
 }
