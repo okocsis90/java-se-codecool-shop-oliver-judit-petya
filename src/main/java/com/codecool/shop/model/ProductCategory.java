@@ -2,6 +2,9 @@ package com.codecool.shop.model;
 
 import java.util.ArrayList;
 
+/**
+ * All product must have a productCategory, which represents a real life product category.
+ */
 public class ProductCategory extends BaseModel {
     private String department;
     private ArrayList<Product> products;
@@ -44,6 +47,11 @@ public class ProductCategory extends BaseModel {
                 this.description);
     }
 
+    /**
+     * The overriden equals method looks for the id and name of ProcuctCategories.
+     * @param other the other ProductCategory object.
+     * @return boolean. If the two ProductCategory matches, true.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) return false;

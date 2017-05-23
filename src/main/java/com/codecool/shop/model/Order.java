@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An instance of order with its unique id is generated with the session. If you click on add to cart button,
+ * the given product with the specified quantity will be given to the order instances "items" list.
+ * It then updates the orderPrice and orderQuantity values.
+ */
 public class Order {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -18,6 +23,11 @@ public class Order {
     private int id;
 
 
+    /**
+     * This method adds a LineItem to the specific order. If the LineItem is already in the order
+     * it just updates it. Then it also updates orderPrice and orderQuantity.
+     * @param item LineItem object to be added to the order.
+     */
     public void addLineItem(LineItem item) {
         int counter = 0;
         logger.info("current items in order: ");

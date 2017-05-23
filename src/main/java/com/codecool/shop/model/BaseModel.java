@@ -3,16 +3,29 @@ package com.codecool.shop.model;
 
 import java.lang.reflect.Field;
 
+
+/**
+ * A BaseModel from which Product, ProductCategory and Supplier inherits. Has two constructors.
+ */
 public class BaseModel {
 
     protected int id;
     protected String name;
     protected String description;
 
+    /**
+     * Constructor which only needs a name parameter.
+     * @param name Name of the Model.
+     */
     public BaseModel(String name) {
         this.name = name;
     }
 
+    /**
+     * Constructor which needs name and description.
+     * @param name Name of the Model.
+     * @param description Description of the Model.
+     */
     public BaseModel(String name, String description) {
         this.name = name;
         this.description = description;

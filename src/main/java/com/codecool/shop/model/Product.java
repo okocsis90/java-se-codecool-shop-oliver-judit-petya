@@ -2,6 +2,9 @@ package com.codecool.shop.model;
 
 import java.util.Currency;
 
+/**
+ * Product represents a real life product which can be ordered from the webshop.
+ */
 public class Product extends BaseModel {
 
     private float defaultPrice;
@@ -9,7 +12,15 @@ public class Product extends BaseModel {
     private ProductCategory productCategory;
     private Supplier supplier;
 
-
+    /**
+     * The constructor sets all the given paramaters for the Product.
+     * @param name Name of the given Product.
+     * @param defaultPrice Price of the Product.
+     * @param currencyString Currency of the Product.
+     * @param description Description of the Product.
+     * @param productCategory ProductCategory of the Product.
+     * @param supplier Supplier of the Product.
+     */
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
@@ -76,6 +87,11 @@ public class Product extends BaseModel {
                 this.supplier.getName());
     }
 
+    /**
+     * The overriden equals method looks for the id and name of Products.
+     * @param other the Other Product object.
+     * @return boolean. If the two Product matches, true.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == null) return false;

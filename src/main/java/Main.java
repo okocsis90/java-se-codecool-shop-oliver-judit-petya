@@ -1,7 +1,5 @@
 import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -9,6 +7,9 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+/**
+ * The task of the main class is to navigate between the given routes and the controller classes.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -22,18 +23,33 @@ public class Main {
         // populate some data for the memory storage
 //        populateData();
 
+        /**
+         * This route calls the addToCart method of the OrderController. The current Product, from which
+         * the Add To Cart button has been clicked will be added to the current Order stored in the session.
+         * So that all the Products with the chosen quantities (by default 1) will be stored in the Order.
+         */
         post("/add_to_cart", OrderController::addToCart);
 
+        /**
+         * This route is responsible for rendering the main Page with all the data of the Products stored
+         * in the storage.
+         */
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/index", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
+        /**
+         * This route ensures that on the index page, the products are filterable by categories.
+         */
         get("/category/:id", (Request req, Response res) -> {
             int categoryID = Integer.parseInt(req.params(":id"));
             return new ThymeleafTemplateEngine().render(ProductController.renderProductsbyCategory(req, res, categoryID));
         });
+        /**
+         * This route ensures that on the index page, the products are filterable by suppliers.
+         */
         get("/supplier/:id", (Request req, Response res) -> {
             int supplierID = Integer.parseInt(req.params(":id"));
             return new ThymeleafTemplateEngine().render(ProductController.renderProductsbySupplier(req, res, supplierID));
